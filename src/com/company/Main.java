@@ -17,6 +17,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        TR_Graph tr_graph = new TR_Graph();
 
+        for (Node n : tr_graph.graph) {
+            n.printNode();
+        }
     }
 }
