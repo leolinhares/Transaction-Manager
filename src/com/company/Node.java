@@ -1,6 +1,8 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by thiagoisaias on 5/9/16.
@@ -8,11 +10,5 @@ import java.util.ArrayList;
 public class Node {
 
     String current;
-    ArrayList<Node> next = new ArrayList<Node>();
-    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-
-    public Node(String a, ArrayList<Node> b){
-        this.current = a;
-        this.next = b;
-    }
+    Map<String,Node> next = new HashMap<String,Node>();
 }

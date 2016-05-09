@@ -6,4 +6,8 @@ package com.company;
 public class Transaction {
     String name;
     Node current_state;
+
+    public Transaction(String name){
+        this.name = name;
+    }
 }
