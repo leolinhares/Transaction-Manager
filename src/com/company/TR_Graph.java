@@ -107,8 +107,11 @@ public class TR_Graph {
 //        this.efetivada.next.put("TR_Finish",this.tr_finalizada);
 //    }
 
-    public void search(Transaction t1, String action){
+    public Node search(int transactionID, int currentNodeID){
         //Dada uma transacão, verificar t1.current_state.next("action",???)
+        Node node = this.graph.get(currentNodeID);
+        Node destinationNode = node.getEdges().get(transactionID);
+        return destinationNode;
     }
 
 }

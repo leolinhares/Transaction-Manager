@@ -10,14 +10,14 @@ public class Node {
 
     private int id;
     private String description;
-    private Map<Transaction,Node> edges = new HashMap<>();
+    private Map<Integer,Node> edges = new HashMap<>();
 
-    public Map<Transaction, Node> getEdges() {
+    public Map<Integer, Node> getEdges() {
         return edges;
     }
 
     public void setEdges(Transaction t, Node destinationNode) {
-        this.edges.put(t,destinationNode);
+        this.edges.put(t.id,destinationNode);
     }
 
     public Node(int id, String description) {

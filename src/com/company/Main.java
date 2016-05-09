@@ -22,5 +22,6 @@ public class Main {
         for (Node n : tr_graph.graph) {
             n.printNode();
         }
+        System.out.println(tr_graph.search(0,0).getDescription());
     }
 }
