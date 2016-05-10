@@ -2,6 +2,7 @@ package com.company;
 
 /**
  * Created by thiagoisaias on 5/9/16.
+ * Modified by leolinhares on 5/10/16.
  */
 public class Transaction {
 
@@ -25,12 +26,5 @@ public class Transaction {
         this.currentNode = currentNode;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Transaction(String name){
-        this.name = name;
-    }
 
 }

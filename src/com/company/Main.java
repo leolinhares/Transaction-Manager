@@ -23,7 +23,15 @@ public class Main {
         //caso 1: criando a transacao
         Transaction t1 = new Transaction(tr_graph);
         transactions.add(t1);
+
+        //caso 2: utilizando uma transacao ja criada para alterar o estado dela
         tr_graph.search(t1,"TR_Begin");
+        tr_graph.search(t1,"READ");
+        tr_graph.search(t1,"WRITE");
+        tr_graph.search(t1,"WRITE");
+        tr_graph.search(t1,"READ");
+        tr_graph.search(t1,"TR_Terminate");
+
 
         for (Transaction t: transactions) {
             System.out.println(t.getCurrentNode().getDescription());

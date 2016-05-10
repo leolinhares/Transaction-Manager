@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * Created by thiagoisaias on 5/9/16.
+ * Modified by leolinhares on 5/10/16.
  */
 public class Node {
 
@@ -29,21 +30,4 @@ public class Node {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void printNode(){
-        System.out.println(this.id);
-        System.out.println(this.description);
-
-    }
 }
