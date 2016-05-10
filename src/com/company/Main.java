@@ -18,10 +18,16 @@ public class Main {
 
     public static void main(String[] args) {
         TR_Graph tr_graph = new TR_Graph();
+        ArrayList<Transaction> transactions = new ArrayList<>();
 
-        for (Node n : tr_graph.graph) {
-            n.printNode();
+        //caso 1: criando a transacao
+        Transaction t1 = new Transaction(tr_graph);
+        transactions.add(t1);
+        tr_graph.search(t1,"TR_Begin");
+
+        for (Transaction t: transactions) {
+            System.out.println(t.getCurrentNode().getDescription());
         }
-        System.out.println(tr_graph.search(0,0).getDescription());
+
     }
 }
