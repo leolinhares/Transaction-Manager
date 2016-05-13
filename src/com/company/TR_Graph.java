@@ -1,10 +1,7 @@
 package com.company;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
-
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by thiagoisaias on 5/9/16.
@@ -66,8 +63,13 @@ public class TR_Graph {
 
     public void search(Transaction transaction, String action){
         Node node = transaction.getCurrentNode();
-        int destinationNodeID = node.getEdges().get(action);
-        transaction.setCurrentNode(this.graph.get(destinationNodeID));
+        try {
+            int destinationNodeID = node.getEdges().get(action);
+            transaction.setCurrentNode(this.graph.get(destinationNodeID));
+        }
+        catch (NullPointerException e){
+            System.out.println("\nThis is not possible. Try Again.\n");
+        }
     }
 
 }
