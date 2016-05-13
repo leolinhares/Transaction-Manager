@@ -18,6 +18,10 @@ public class Transaction {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Node getCurrentNode() {
         return currentNode;
     }
