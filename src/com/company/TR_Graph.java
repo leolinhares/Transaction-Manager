@@ -36,27 +36,27 @@ public class TR_Graph {
             Node node = this.graph.get(i);
             switch (i){
                 case 0:
-                    node.setEdges("TR_Begin",1);
+                    node.setEdges("1",1);
                     break;
                 case 1:
-                    node.setEdges("READ",2);
-                    node.setEdges("WRITE",2);
+                    node.setEdges("2",2);
+                    node.setEdges("3",2);
                     break;
                 case 2:
-                    node.setEdges("READ",2);
-                    node.setEdges("WRITE",2);
-                    node.setEdges("TR_Rollback",4);
-                    node.setEdges("TR_Terminate",4);
+                    node.setEdges("2",2);
+                    node.setEdges("3",2);
+                    node.setEdges("4",4);
+                    node.setEdges("5",4);
                     break;
                 case 3:
-                    node.setEdges("TR_Commit",5);
-                    node.setEdges("TR_Rollback",4);
+                    node.setEdges("6",5);
+                    node.setEdges("4",4);
                     break;
                 case 4:
-                    node.setEdges("TR_Finish",6);
+                    node.setEdges("7",6);
                     break;
                 case 5:
-                    node.setEdges("TR_Finish",6);
+                    node.setEdges("7",6);
                     break;
                 default:
                     break;
@@ -65,7 +65,6 @@ public class TR_Graph {
     }
 
     public void search(Transaction transaction, String action){
-        //Dada uma transacão, verificar t1.current_state.next("action",???)
         Node node = transaction.getCurrentNode();
         int destinationNodeID = node.getEdges().get(action);
         transaction.setCurrentNode(this.graph.get(destinationNodeID));

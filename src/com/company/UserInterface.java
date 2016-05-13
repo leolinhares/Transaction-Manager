@@ -18,11 +18,10 @@ public class UserInterface {
     public void main_menu(TR_Graph graph, ArrayList<Transaction> list){
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
-        //Retornar um par (Transacao,String acao)
         System.out.println("########### - Transaction Manager - ############");
         System.out.println("[1] - Begin Transaction" + "\n[2] - List Transactions" + "\n[0] - Exit\n");
         int action = sc.nextInt();
-        while(action!=1 && action!=2 && action!=3){
+        while(action!=1 && action!=2 && action!=0){
             System.out.println("Try Again!");
             action = sc.nextInt();
         }
@@ -49,27 +48,29 @@ public class UserInterface {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("########### - Transaction List - ############");
-        for (int i = 0; i<list.size();i++) {
-            System.out.println("[" + i + "] - " + list.get(i).getName() + " - " + list.get(i).getCurrentNode().getDescription());
+        for (int i = 1; i<=list.size();i++) {
+            System.out.println("[" + i + "] - " + list.get(i-1).getName() + " - " + list.get(i-1).getCurrentNode().getDescription());
         }
         if(list.size()>0){
             System.out.println("\nChoose a transaction: ");
             int id = sc.nextInt();
-            action_list(list.get(id),graph);
+            action_list(list,list.get(id-1),graph);
         }
         else{
             System.out.println("Empty. There are no transactions");
             System.out.println("Press Enter to return");
             sc.nextLine();
+            main_menu(graph,list);
         }
     }
 
-    public void action_list(Transaction tr, TR_Graph graph){
+    public void action_list(ArrayList<Transaction> list ,Transaction tr, TR_Graph graph){
         Scanner sc = new Scanner(System.in);
         System.out.println("Transaction - " + tr.getName());
-        System.out.println("[1] - BEGIN\n[2] - WRITE\n[3] - TR_Rollback\n[4] - TR_Terminate\n[5] - TR_Commit\n[6] - TR_Finish ");
-        System.out.println("\n Write the action");
+        System.out.println("[1] - TR_Begin\n[2] - READ\n[3] - WRITE\n[4] - TR_Rollback\n[5] - TR_Terminate\n[6] - TR_Commit\n[7] - TR_Finish ");
+        System.out.println("\nChoose an action");
         String action = sc.nextLine();
         graph.search(tr,action);
+        transaction_list(list,graph);
     }
 }
