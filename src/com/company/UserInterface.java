@@ -54,6 +54,10 @@ public class UserInterface {
         if(list.size()>0){
             System.out.println("\nChoose a transaction: ");
             int id = sc.nextInt();
+            while(id<1 || id>list.size()){
+                System.out.println("Try Again! Index out of boundaries");
+                id = sc.nextInt();
+            }
             action_list(list,list.get(id-1),graph);
         }
         else{
@@ -71,6 +75,6 @@ public class UserInterface {
         System.out.println("\nChoose an action");
         String action = sc.nextLine();
         graph.search(tr,action);
-        transaction_list(list,graph);
+        main_menu(graph,list);
     }
 }
