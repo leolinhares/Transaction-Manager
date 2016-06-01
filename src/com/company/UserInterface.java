@@ -19,7 +19,7 @@ public class UserInterface {
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
         System.out.println("########### - Transaction Manager - ############");
-        System.out.println("[1] - Begin Transaction" + "\n[2] - List Transactions" + "\n[0] - Exit\n");
+        System.out.println("[1] - TR_Begin" + "\n[2] - List Transactions" + "\n[0] - Exit\n");
         int action = sc.nextInt();
         while(action!=1 && action!=2 && action!=0){
             System.out.println("Try Again!");
@@ -71,7 +71,7 @@ public class UserInterface {
     public void action_list(ArrayList<Transaction> list ,Transaction tr, TR_Graph graph){
         Scanner sc = new Scanner(System.in);
         System.out.println("Transaction - " + tr.getName());
-        System.out.println("[1] - TR_Begin\n[2] - READ\n[3] - WRITE\n[4] - TR_Rollback\n[5] - TR_Terminate\n[6] - TR_Commit\n[7] - TR_Finish ");
+        System.out.println("[2] - READ\n[3] - WRITE\n[4] - TR_Rollback\n[5] - TR_Terminate\n[6] - TR_Commit\n[7] - TR_Finish ");
         System.out.println("\nChoose an action");
         String action = sc.nextLine();
         graph.search(tr,action);

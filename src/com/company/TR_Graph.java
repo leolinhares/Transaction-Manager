@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 public class TR_Graph {
 
     ArrayList<Node> graph;
-    private String[] nodelabels = {"Inicio","TR_Iniciada", "Ativa",
+    private String[] nodelabels = {"TR_Iniciada", "Ativa",
             "Processo_Efetivacao", "Processo_Cancelamento", "Efetivada", "Finalizada"};
 
     // Criando o grafo
@@ -23,37 +23,34 @@ public class TR_Graph {
     private void populate(){
 
         // Criando os nós
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < nodelabels.length; i++) {
             Node node = new Node(i,nodelabels[i]);
             this.graph.add(node);
         }
 
         // Adicionando as arestas
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < nodelabels.length; i++) {
             Node node = this.graph.get(i);
             switch (i){
                 case 0:
-                    node.setEdges("1",1);
+                    node.setEdges("2",1);
+                    node.setEdges("3",1);
                     break;
                 case 1:
-                    node.setEdges("2",2);
-                    node.setEdges("3",2);
+                    node.setEdges("2",1);
+                    node.setEdges("3",1);
+                    node.setEdges("4",3);
+                    node.setEdges("5",2);
                     break;
                 case 2:
-                    node.setEdges("2",2);
-                    node.setEdges("3",2);
-                    node.setEdges("4",4);
-                    node.setEdges("5",4);
+                    node.setEdges("6",4);
+                    node.setEdges("4",3);
                     break;
                 case 3:
-                    node.setEdges("6",5);
-                    node.setEdges("4",4);
+                    node.setEdges("7",5);
                     break;
                 case 4:
-                    node.setEdges("7",6);
-                    break;
-                case 5:
-                    node.setEdges("7",6);
+                    node.setEdges("7",5);
                     break;
                 default:
                     break;
