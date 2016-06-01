@@ -1,5 +1,7 @@
 package com.company;
 
+import org.javatuples.Pair;
+
 import java.util.ArrayList;
 
 public class Main {

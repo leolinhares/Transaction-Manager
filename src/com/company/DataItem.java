@@ -7,7 +7,14 @@ public class DataItem {
     private int id;
     private String name;
 
-    public DataItem(int id,String name){
+    @Override
+    public String toString() {
+        return "DataItem{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
+    public DataItem(int id, String name){
         this.id = id;
         this.name = name;
     }

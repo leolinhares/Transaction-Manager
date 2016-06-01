@@ -87,7 +87,8 @@ public class Menu {
             }
             System.out.println("\nChoose a data item: ");
             int it = sc2.nextInt();
-
+            LockManager l = new LockManager();
+            l.LS(tr, itemlist.get(it));
         }
 
         graph.search(tr,action);
