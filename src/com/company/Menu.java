@@ -9,10 +9,12 @@ import java.util.Scanner;
  * Created by thiagoisaias on 5/12/16.
  */
 
-public class UserInterface {
+public class Menu {
 
-    public UserInterface(){
+    ArrayList<DataItem> itemlist;
 
+    public Menu(ArrayList<DataItem> itemlist){
+        this.itemlist = itemlist;
     }
 
     public void main_menu(TR_Graph graph, ArrayList<Transaction> list){
@@ -70,10 +72,24 @@ public class UserInterface {
 
     public void action_list(ArrayList<Transaction> list ,Transaction tr, TR_Graph graph){
         Scanner sc = new Scanner(System.in);
+        Scanner sc2 = new Scanner(System.in);
         System.out.println("Transaction - " + tr.getName());
         System.out.println("[2] - READ\n[3] - WRITE\n[4] - TR_Rollback\n[5] - TR_Terminate\n[6] - TR_Commit\n[7] - TR_Finish ");
         System.out.println("\nChoose an action");
+
         String action = sc.nextLine();
+
+        if(Integer.parseInt(action) == 2 || Integer.parseInt(action) == 3){
+            //Mostrar Itens
+            System.out.println("\n########### - Data itens - ############\n");
+            for (int i=0;i<itemlist.size();i++) {
+                System.out.println("["+i+"] - "+ itemlist.get(i).getName());
+            }
+            System.out.println("\nChoose a data item: ");
+            int it = sc2.nextInt();
+
+        }
+
         graph.search(tr,action);
         main_menu(graph,list);
     }
