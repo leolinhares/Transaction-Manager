@@ -1,6 +1,5 @@
 package com.company;
 
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,6 +11,7 @@ import java.util.Scanner;
 public class Menu {
 
     ArrayList<DataItem> itemlist;
+    LockManager lock = new LockManager();
 
     public Menu(ArrayList<DataItem> itemlist){
         this.itemlist = itemlist;
@@ -82,13 +82,22 @@ public class Menu {
         if(Integer.parseInt(action) == 2 || Integer.parseInt(action) == 3){
             //Mostrar Itens
             System.out.println("\n########### - Data itens - ############\n");
-            for (int i=0;i<itemlist.size();i++) {
-                System.out.println("["+i+"] - "+ itemlist.get(i).getName());
+            for (int i=1;i<=itemlist.size();i++) {
+                System.out.println("["+i+"] - "+ itemlist.get(i-1).getName());
             }
             System.out.println("\nChoose a data item: ");
             int it = sc2.nextInt();
-            LockManager l = new LockManager();
-            l.LS(tr, itemlist.get(it));
+
+            switch (action){
+                case "2":
+                    lock.LS(tr, itemlist.get(it-1));
+                    break;
+                case "3":
+                    break;
+                default:
+                    break;
+
+            }
         }
 
         graph.search(tr,action);

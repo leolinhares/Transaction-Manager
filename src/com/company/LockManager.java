@@ -1,10 +1,9 @@
 package com.company;
 
 import org.javatuples.Pair;
-
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
-import java.util.HashMap;.
+import java.util.HashMap;
+
 /**
  * Created by leolinhares on 01/06/2016.
  */
@@ -22,9 +21,7 @@ public class LockManager {
         tuple_list.add(Pair.with(i,"S"));
         lock_table.put(t,tuple_list);
 
-
-        System.out.println(lock_table.get(t));
-        //se adicionar na wait_queue
+        System.out.println(lock_table.values());
 
     }
 
