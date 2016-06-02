@@ -21,9 +21,9 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
         System.out.println("########### - Transaction Manager - ############");
-        System.out.println("[1] - TR_Begin" + "\n[2] - List Transactions" + "\n[0] - Exit\n");
+        System.out.println("[1] - TR_Begin" + "\n[2] - List Transactions" + "\n[3] - Lock Table" +"\n[4] - Wait List" +"\n[0] - Exit\n");
         int action = sc.nextInt();
-        while(action!=1 && action!=2 && action!=0){
+        while(action!=1 && action!=2 && action!=3 && action!=4 && action!=0){
             System.out.println("Try Again!");
             action = sc.nextInt();
         }
@@ -38,6 +38,14 @@ public class Menu {
                 break;
             case 2:
                 transaction_list(list,graph);
+                break;
+            case 3:
+                System.out.println(lock.getLocktable().toString());
+                main_menu(graph,list);
+                break;
+            case 4:
+                System.out.println(lock.getWaitqueue().toString());
+                main_menu(graph,list);
                 break;
             default:
                 System.exit(0);

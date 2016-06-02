@@ -18,10 +18,12 @@ public class LockManager {
     public void LS(Transaction t, DataItem i){
 
         if(i.getLocktype() == "U" || i.getLocktype() == "S"){
-            locktable.put(t,Pair.with(i,"S")); // Adiciona na key(transaction) t, o par (i,S)
-            i.setLocktype("S");
+            if(i.getWaitqueue().isEmpty()) {
+                locktable.put(t, Pair.with(i, "S")); // Adiciona na key(transaction) t, o par (i,S)
+                i.setLocktype("S");
+            }
         }
-        else if(i.getLocktype() == "X"){ //E se a propria transacao t tiver o bloqueio sobre esse item?
+        else if(i.getLocktype() == "X"){
             //Coloca a transaction t na waitqueue de i
             i.getWaitqueue().add(Pair.with(t,"S"));
             waitqueue.put(i,i.getWaitqueue());
@@ -29,18 +31,18 @@ public class LockManager {
         else{
             //Error
         }
-        //System.out.println(locktable.toString());
-        System.out.println(waitqueue.toString());
     }
 
     public void LX(Transaction t, DataItem i){
 
         if(i.getLocktype() == "U" || i.getLocktype() == "S" ){
             //Colocar na lock_table
+            locktable.put(t,Pair.with(i,"X"));
             i.setLocktype("X");
         }
-        else if(i.getLocktype() == "X"){ //E se a propria transacao t tiver o bloqueio sobre esse item?
-            //Coloca a transaction t na waitqueue de i
+        else if(i.getLocktype() == "X"){
+            i.getWaitqueue().add(Pair.with(t,"X"));
+            waitqueue.put(i,i.getWaitqueue());
         }
         else{
             //Error
@@ -60,5 +62,13 @@ public class LockManager {
         /*Senao
             i.setLockType = "U"
          */
+    }
+
+    public MultiValuedMap<Transaction, Pair<DataItem, String>> getLocktable() {
+        return locktable;
+    }
+
+    public HashMap<DataItem, ArrayDeque<Pair<Transaction, String>>> getWaitqueue() {
+        return waitqueue;
     }
 }

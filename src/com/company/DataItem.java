@@ -13,12 +13,6 @@ public class DataItem {
     private String locktype; //Current lockType
     private ArrayDeque<Pair<Transaction,String>> waitqueue;
 
-    @Override
-    public String toString() {
-        return "DataItem{" +
-                "name='" + name + '\'' +
-                '}';
-    }
 
     public DataItem(int id, String name){
         this.id = id;
@@ -57,5 +51,10 @@ public class DataItem {
 
     public void setWaitqueue(ArrayDeque<Pair<Transaction, String>> waitqueue) {
         this.waitqueue = waitqueue;
+    }
+
+    @Override
+    public String toString() {
+        return "DataItem{" + name  + '}';
     }
 }

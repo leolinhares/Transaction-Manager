@@ -32,8 +32,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "name='" + name + '\'' +
-                '}';
+        return "Transaction{" + name + '}';
     }
 }
