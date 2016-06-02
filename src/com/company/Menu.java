@@ -93,6 +93,7 @@ public class Menu {
                     lock.LS(tr, itemlist.get(it-1));
                     break;
                 case "3":
+                    lock.LX(tr, itemlist.get(it-1));
                     break;
                 default:
                     break;

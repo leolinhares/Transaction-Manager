@@ -1,5 +1,9 @@
 package com.company;
 
+import org.javatuples.Pair;
+
+import java.util.ArrayDeque;
+
 /**
  * Created by thiagoisaias on 6/1/16.
  */
@@ -7,6 +11,7 @@ public class DataItem {
     private int id;
     private String name;
     private String locktype; //Current lockType
+    private ArrayDeque<Pair<Transaction,String>> waitqueue;
 
     @Override
     public String toString() {
@@ -19,6 +24,7 @@ public class DataItem {
         this.id = id;
         this.name = name;
         this.locktype = "U";
+        this.waitqueue = new ArrayDeque<>();
     }
 
     public int getId() {
@@ -43,5 +49,13 @@ public class DataItem {
 
     public void setLocktype(String locktype) {
         this.locktype = locktype;
+    }
+
+    public ArrayDeque<Pair<Transaction, String>> getWaitqueue() {
+        return waitqueue;
+    }
+
+    public void setWaitqueue(ArrayDeque<Pair<Transaction, String>> waitqueue) {
+        this.waitqueue = waitqueue;
     }
 }

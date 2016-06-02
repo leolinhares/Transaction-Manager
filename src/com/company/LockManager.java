@@ -1,37 +1,36 @@
 package com.company;
 
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 import org.javatuples.Pair;
-
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Queue;
 
 /**
  * Created by leolinhares on 01/06/2016.
  */
 public class LockManager {
 
-    // Transaction -> < (item, locktype), (item, locktype), ... >
-    private HashMap<Transaction,Pair<DataItem,String>> lock_table = new HashMap<>();
-    //private ArrayList<Pair<DataItem,String>> lock_tuple_list = new ArrayList();
-
-    // Item -> < (transaction, locktype), (transaction, locktype), ... >
-    private HashMap<DataItem, Queue> wait_queue = new HashMap<>();
-    private ArrayDeque<Pair<Transaction,String>> queue_tuple_list = new ArrayDeque<>();
+    //LockTable -> Transaction : List of (DataItem,String)
+    private MultiValuedMap<Transaction,Pair<DataItem,String>> locktable = new HashSetValuedHashMap<>();
+    private HashMap<DataItem,ArrayDeque<Pair<Transaction,String>>> waitqueue = new HashMap<>();
 
     public void LS(Transaction t, DataItem i){
-        //se adicionar na lock_table
+
         if(i.getLocktype() == "U" || i.getLocktype() == "S"){
-            lock_table.put(t,Pair.with(i,"S")); // Adiciona na key(transaction) t, o item i
+            locktable.put(t,Pair.with(i,"S")); // Adiciona na key(transaction) t, o par (i,S)
             i.setLocktype("S");
         }
         else if(i.getLocktype() == "X"){ //E se a propria transacao t tiver o bloqueio sobre esse item?
             //Coloca a transaction t na waitqueue de i
+            i.getWaitqueue().add(Pair.with(t,"S"));
+            waitqueue.put(i,i.getWaitqueue());
         }
         else{
             //Error
         }
+        //System.out.println(locktable.toString());
+        System.out.println(waitqueue.toString());
     }
 
     public void LX(Transaction t, DataItem i){
@@ -62,5 +61,4 @@ public class LockManager {
             i.setLockType = "U"
          */
     }
-
 }
