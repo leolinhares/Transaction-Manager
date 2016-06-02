@@ -30,5 +30,10 @@ public class Transaction {
         this.currentNode = currentNode;
     }
 
-
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
