@@ -6,6 +6,7 @@ package com.company;
 public class DataItem {
     private int id;
     private String name;
+    private String locktype; //Current lockType
 
     @Override
     public String toString() {
@@ -17,6 +18,7 @@ public class DataItem {
     public DataItem(int id, String name){
         this.id = id;
         this.name = name;
+        this.locktype = "U";
     }
 
     public int getId() {
@@ -33,5 +35,13 @@ public class DataItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLocktype() {
+        return locktype;
+    }
+
+    public void setLocktype(String locktype) {
+        this.locktype = locktype;
     }
 }
