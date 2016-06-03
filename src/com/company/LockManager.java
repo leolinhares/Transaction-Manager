@@ -20,47 +20,54 @@ public class LockManager {
 
     public void LS(Transaction t, DataItem i){
 
-        if(i.getLocktype() == "U" || i.getLocktype() == "S"){
+        if(locktable.get(t).contains(Pair.with(i,"S")) || locktable.get(t).contains(Pair.with(i,"X"))){
+            System.out.println("A transação {"+t.getName()+"} já possui o bloqueio do item {"+i.getName()+"}\n");
+        }
+
+        else if(i.getLocktype() == "U" || i.getLocktype() == "S"){
             if(i.getWaitqueue().isEmpty()) {
-                //TODO: avisar que o bloqueio ja foi concedido se a transação tiver o bloqueio
                 locktable.put(t, Pair.with(i, "S")); // Adiciona na key(transaction) t, o par (i,S)
                 i.setLocktype("S");
                 System.out.println("Bloqueio compartilhado de "+ i.toString() +" concedido a transação "+ t.toString());
             }else{
-                //TODO: o que fazer quando a lista já tem algo não pode conceder o bloqueio então?
+                i.getWaitqueue().add(Pair.with(t,"S"));
+                waitqueue.put(i,i.getWaitqueue());
             }
         }
+
         else if(i.getLocktype() == "X"){
-            //Coloca a transaction t na waitqueue de i
-            i.getWaitqueue().add(Pair.with(t,"S"));
-            waitqueue.put(i,i.getWaitqueue());
-            System.out.println("Bloqueio compartilhado não concedido. Transação" + t.toString() +"foi colocada na wait_list de "+ i.toString());
-        }
-        else{
-            //Error
+            if(locktable.get(t).contains(Pair.with(i,"X"))){
+                System.out.println("A transação {"+t.getName()+"} já possui o bloqueio do item {"+i.getName()+"}\n");
+            }
+            else{
+                //Coloca a transaction t na waitqueue de i
+                i.getWaitqueue().add(Pair.with(t, "S"));
+                waitqueue.put(i, i.getWaitqueue());
+                System.out.println("Bloqueio compartilhado não concedido. Transação " + t.toString() + " foi colocada na wait_list de " + i.toString());
+            }
         }
     }
 
     public void LX(Transaction t, DataItem i){
 
-        if(i.getLocktype() == "U"){
+        if(locktable.get(t).contains(Pair.with(i,"X"))){
+            System.out.println("A transação {"+t.getName()+"} já possui o bloqueio exclusivo do item {"+i.getName()+"}\n");
+        }
+
+        else if(i.getLocktype() == "U"){
             // O pedido de bloqueio aqui é exclusivo, então se o objeto está
             // desbloqueado, o bloqueio é concedido e vai pra lock_table.
-
-            //TODO: precisa verificar se a fila ta vazia se ele está unlocked?
             locktable.put(t,Pair.with(i,"X"));
             i.setLocktype("X");
             System.out.println("Bloqueio exclusivo de "+ i.toString() +" concedido a transação "+ t.toString());
         }
+
         else if(i.getLocktype() == "S" || i.getLocktype() == "X"){
-            //TODO: verificar se eu ja tenho o bloqueio exclusivo e avisar
             // O pedido de bloqueio aqui é exclusivo, então se o objeto já está
             // sendo lido, o bloqueio não é concedido e vai pra wait_queue.
             i.getWaitqueue().add(Pair.with(t,"X"));
             waitqueue.put(i,i.getWaitqueue());
-            System.out.println("Bloqueio exclusivo não concedido. Transação" + t.toString() +"foi colocada na wait_list de "+ i.toString());
-        }else{
-            //Error
+            System.out.println("Bloqueio exclusivo não concedido. Transação " + t.toString() +" foi colocada na wait_list de "+ i.toString());
         }
     }
 
