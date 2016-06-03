@@ -56,8 +56,11 @@ public class Menu {
                 System.out.println(lock.getWaitqueue().toString());
                 main_menu(graph,list);
                 break;
-            default:
+            case 0:
                 System.exit(0);
+            default:
+                System.out.println("\nTry Again!\n");
+                main_menu(graph,list);
                 break;
         }
     }
@@ -96,30 +99,47 @@ public class Menu {
 
         String action = sc.nextLine();
 
-        if(Integer.parseInt(action) == 2 || Integer.parseInt(action) == 3 || Integer.parseInt(action) == 6){
-            //Mostrar Itens
-            System.out.println("\n########### - Data itens - ############\n");
-            for (int i=1;i<=itemlist.size();i++) {
-                System.out.println("["+i+"] - "+ itemlist.get(i-1).getName());
-            }
-            System.out.println("\nChoose a data item: ");
-            int it = sc2.nextInt();
+        switch (action){
+            case "2":
+                //Mostrar Itens
+                System.out.println("\n########### - Data itens - ############\n");
+                for (int i=1;i<=itemlist.size();i++) {
+                    System.out.println("["+i+"] - "+ itemlist.get(i-1).getName());
+                }
+                System.out.println("\nChoose a data item: ");
+                int it = sc2.nextInt();
 
-            switch (action){
-                case "2":
-                    lock.LS(tr, itemlist.get(it-1));
-                    break;
-                case "3":
-                    lock.LX(tr, itemlist.get(it-1));
-                    break;
-                case "6":
-                    //TODO: isso tem que sair daqui, pq só na hora de um commit que libera TUDO de uma transação t
-                    lock.U(tr);
-                    break;
-                default:
-                    break;
+                lock.LS(tr, itemlist.get(it-1));
 
-            }
+                break;
+            case "3":
+                //Mostrar Itens
+                System.out.println("\n########### - Data itens - ############\n");
+                for (int i=1;i<=itemlist.size();i++) {
+                    System.out.println("["+i+"] - "+ itemlist.get(i-1).getName());
+                }
+                System.out.println("\nChoose a data item: ");
+                int it2 = sc2.nextInt();
+
+                lock.LX(tr, itemlist.get(it2-1));
+
+                break;
+            case "4":
+                break;
+            case "5":
+                break;
+            case "6":
+                //Nao existe aresta "commit" saindo do estado ativo
+                //TODO: Tratar esse problema
+                lock.U(tr);
+                break;
+            case "7":
+                break;
+            default:
+                System.out.println("\nTry Again");
+                action_list(list,tr,graph);
+                break;
+
         }
 
         graph.search(tr,action);
