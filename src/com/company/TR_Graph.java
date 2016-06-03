@@ -9,6 +9,27 @@ import java.util.concurrent.ExecutionException;
  */
 public class TR_Graph {
 
+    /*
+    Arestas do Grafo:
+    1. TR_Begin
+    2. READ
+    3. WRITE
+    4. TR_Rollback
+    5. TR_Terminate
+    6. TR_Commit
+    7. TR_Finish
+     */
+
+    /*
+    Estados do Grafo
+    0. TR_Iniciada
+    1. Ativa
+    2. Processo_Efetivação
+    3. Processo_Cancelamento
+    4. Efetivada
+    5. Finalizada
+     */
+
     ArrayList<Node> graph;
     private String[] nodelabels = {"TR_Iniciada", "Ativa",
             "Processo_Efetivacao", "Processo_Cancelamento", "Efetivada", "Finalizada"};
