@@ -62,11 +62,14 @@ public class LockManager {
         }
     }
 
-    public void U(Transaction t, DataItem i){
+    public void U(Transaction t){
 
-        //Locktable -> apagar na key t, o dado i
+        //TODO: Locktable -> apagar todos os dados da transação t e colocar todos os dados como unlocked
+//        Pair d,s = locktable.get(t);
 
-        //Pegar automaticamente alguem da waitqueue?
+        locktable.get(t).clear();
+
+        //TODO: Pegar automaticamente alguem da waitqueue?
         /*Se a waitqueue de i nao estiver vazia
             pegar o par (Transaction,LockType)
             colocar na locktable -> (Transaction): DataItem i

@@ -87,7 +87,7 @@ public class Menu {
 
         String action = sc.nextLine();
 
-        if(Integer.parseInt(action) == 2 || Integer.parseInt(action) == 3){
+        if(Integer.parseInt(action) == 2 || Integer.parseInt(action) == 3 || Integer.parseInt(action) == 6){
             //Mostrar Itens
             System.out.println("\n########### - Data itens - ############\n");
             for (int i=1;i<=itemlist.size();i++) {
@@ -104,7 +104,8 @@ public class Menu {
                     lock.LX(tr, itemlist.get(it-1));
                     break;
                 case "6":
-                    lock.U(tr, itemlist.get(it-1));
+                    //TODO: isso tem que sair daqui, pq só na hora de um commit que libera TUDO de uma transação t
+                    lock.U(tr);
                     break;
                 default:
                     break;
