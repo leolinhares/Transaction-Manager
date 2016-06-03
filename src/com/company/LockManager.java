@@ -22,6 +22,7 @@ public class LockManager {
 
         if(i.getLocktype() == "U" || i.getLocktype() == "S"){
             if(i.getWaitqueue().isEmpty()) {
+                //TODO: avisar que o bloqueio ja foi concedido se a transação tiver o bloqueio
                 locktable.put(t, Pair.with(i, "S")); // Adiciona na key(transaction) t, o par (i,S)
                 i.setLocktype("S");
                 System.out.println("Bloqueio compartilhado de "+ i.toString() +" concedido a transação "+ t.toString());
@@ -52,6 +53,7 @@ public class LockManager {
             System.out.println("Bloqueio exclusivo de "+ i.toString() +" concedido a transação "+ t.toString());
         }
         else if(i.getLocktype() == "S" || i.getLocktype() == "X"){
+            //TODO: verificar se eu ja tenho o bloqueio exclusivo e avisar
             // O pedido de bloqueio aqui é exclusivo, então se o objeto já está
             // sendo lido, o bloqueio não é concedido e vai pra wait_queue.
             i.getWaitqueue().add(Pair.with(t,"X"));
