@@ -6,12 +6,20 @@ import java.util.Scanner;
 
 /**
  * Created by thiagoisaias on 5/12/16.
+ * Modified by leolinhares on 6/2/16.
  */
 
 public class Menu {
 
     ArrayList<DataItem> itemlist;
     LockManager lock = new LockManager();
+
+    private int ts = 0;
+
+    private int getTs() {
+        ts = ts+1;
+        return ts;
+    }
 
     public Menu(ArrayList<DataItem> itemlist){
         this.itemlist = itemlist;
@@ -33,6 +41,7 @@ public class Menu {
                 String tr_name = sc2.nextLine();
                 Transaction tr = new Transaction(graph);
                 tr.setName(tr_name);
+                tr.setTimestamp(getTs());
                 list.add(tr);
                 main_menu(graph,list);
                 break;
