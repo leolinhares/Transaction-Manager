@@ -4,7 +4,6 @@ import org.apache.commons.collections4.MapIterator;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
 import org.javatuples.Pair;
-
 import java.util.*;
 
 /**
@@ -54,6 +53,11 @@ public class LockManager {
         if(locktable.get(t).contains(Pair.with(i,"X"))){
             System.out.println("A transação {"+t.getName()+"} já possui o bloqueio exclusivo do item {"+i.getName()+"}\n");
         }
+        //Se a transacao tem um bloqueio S e quer um bloqueio X e a fila do item esta vazia
+        else if (locktable.get(t).contains(Pair.with(i,"S")) && i.getWaitqueue().isEmpty()){
+            i.setLocktype("X");
+            Collection<Pair<DataItem,String>> lista = locktable.get(t);
+        }
 
         else if(i.getLocktype() == "U"){
             // O pedido de bloqueio aqui é exclusivo, então se o objeto está
@@ -74,35 +78,7 @@ public class LockManager {
 
     public void U(Transaction t){
 
-
-        //TODO: Consertar o iterator/foreach
-        //O problema acontece na hora de remover algum elemento. O iterator (ou foreach) fica maluco pq o tamanho
-        //da colecao mudou
-        System.out.println("to aqui");
-
         Iterator<Pair<DataItem,String>> iterator = locktable.get(t).iterator();
-//        while(iterator.hasNext()){
-//            Pair<DataItem,String> item_block = iterator.next();
-//            item_block.getValue0().setLocktype("U");
-//            System.out.println("to aqui2");
-//        }
-//
-//        Iterator<Pair<DataItem,String>> iterator2 = locktable.get(t).iterator();
-//        while(iterator2.hasNext()){
-//            System.out.println("to aqui3");
-//
-//            Pair<DataItem,String> item_block = iterator2.next();
-//            if (!item_block.getValue0().getWaitqueue().isEmpty()){ //wait_queue do item nao vazia
-//                // pega a primeira transacao da wait_queue e o modo de bloqueio
-//                Pair<Transaction,String> transaction_block = item_block.getValue0().getWaitqueue().poll();
-//
-//                locktable.put(transaction_block.getValue0(),Pair.with(item_block.getValue0(),transaction_block.getValue1()));
-//
-//                item_block.getValue0().setLocktype(transaction_block.getValue1());
-//
-//                System.out.println("Bloqueio de "+ item_block.getValue0().toString() +" concedido a transação "+ transaction_block.getValue0().toString());
-//            }
-//        }
 
         while(iterator.hasNext()){
             Pair<DataItem,String> item_block = iterator.next();
@@ -112,21 +88,17 @@ public class LockManager {
             else{
                 //Remove o primeiro elemento da waitlist do DataItem referente ao pair
                 Pair<Transaction,String> transaction_block = item_block.getValue0().getWaitqueue().poll();
-//                if (waitqueue.get(item_block.getValue0()).isEmpty()){ //se a waitqueue ficar vazia, apaga ela
-//                    waitqueue.get(item_block.getValue0());
-//                }
+                if (waitqueue.get(item_block.getValue0()).isEmpty()){ //se a waitqueue do item i ficar vazia, apaga ela
+                    waitqueue.remove(item_block.getValue0());
+                }
                 //Adiciona na locktable
                 locktable.put(transaction_block.getValue0(),Pair.with(item_block.getValue0(),transaction_block.getValue1()));
                 //Atualiza o estado de bloqueio do DataItem para "bloqueio solicitado pela transaction"
                 item_block.getValue0().setLocktype(transaction_block.getValue1());
                 System.out.println("Bloqueio de "+ item_block.getValue0().toString() +" concedido a transação "+ transaction_block.getValue0().toString());
-
             }
-            //locktable.get(t).remove(item_block); //Remove o bloqueio da locktable
         }
         locktable.get(t).clear();
-        //TODO: [Problema] Esse cenario é possivel?
-        //O que acontece se uma transacao T for o primeiro elemento da waitlist de um item que ela acabou de liberar
     }
 
     public MultiValuedMap<Transaction, Pair<DataItem, String>> getLocktable() {
