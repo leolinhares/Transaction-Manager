@@ -8,10 +8,19 @@ public class Transaction {
 
     private String name;
     private Node currentNode;
+    private int timestamp;
 
     public Transaction(TR_Graph tr_graph){
         // 0 seria o no inicial
         currentNode = tr_graph.graph.get(0);
+    }
+
+    public int getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(int timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getName() {
@@ -30,5 +39,8 @@ public class Transaction {
         this.currentNode = currentNode;
     }
 
-
+    @Override
+    public String toString() {
+        return "Transaction{" + name + '}';
+    }
 }
